@@ -1,0 +1,36 @@
+.sidebar{
+    position: fixed;
+    left: 0;bottom: 0;top: 75px;
+    width: 75px ;
+    background-color: #bc014fdc;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-evenly;
+    min-height: 450px;
+}
+#sidebaricon{
+    font-size:2rem;
+    margin-right: 80px;
+     color: #bc0150;
+     font-size: 3.3rem;
+      font-weight: 900;
+}
+#nhk{
+    color: aliceblue;
+     font-family: system-ui;
+     margin-left: 10px;
+     font-size: 1.7rem;
+     font-weight: 600;
+}
+.kanji{
+  
+    height:80px;
+    margin-bottom: 10px;
+    color: rgb(233, 230, 230);
+    font-size: 2.5rem;
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
