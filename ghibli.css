@@ -81,8 +81,9 @@ body{
 #download:hover{
   background-color: #ec0665f3;
   transition: 0.3s;
+  
   cursor: pointer;
-  transform: scale(1.1) perspective(1px);
+  transform: scale(1.2) perspective(1px);
 }
 container {
     display: flex;
