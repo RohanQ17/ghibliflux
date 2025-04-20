@@ -12,6 +12,169 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    
+    <style>
+      /* Search functionality styling */
+      .middle form {
+        position: relative;
+      }
+      
+      #searchResults {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        max-height: 400px;
+        overflow-y: auto;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+        margin-top: 5px;
+      }
+      
+      .search-result-item {
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        border-bottom: 1px solid #eee;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+      
+      .search-result-item:hover {
+        background-color: #f7f0f2;
+      }
+      
+      .search-result-item img {
+        width: 60px;
+        height: 40px;
+        object-fit: cover;
+        margin-right: 15px;
+        border-radius: 4px;
+      }
+      
+      .search-result-info h4 {
+        margin: 0 0 5px 0;
+        color: #333;
+        font-size: 16px;
+      }
+      
+      .search-result-info p {
+        margin: 0;
+        color: #bc0150;
+        font-size: 14px;
+      }
+      
+      /* Navbar Icons Popup Styling */
+      .nav-popup {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        padding: 12px;
+        z-index: 1000;
+        width: 240px;
+        top: 70px;
+        color: #333;
+        border-top: 3px solid #bc0150;
+      }
+      
+      .popup-home {
+        right: 160px;
+      }
+      
+      .popup-queue {
+        right: 100px;
+      }
+      
+      .popup-anime {
+        right: 40px;
+      }
+      
+      .nav-popup h3 {
+        color: #bc0150;
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 18px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 8px;
+      }
+      
+      .popup-content {
+        font-size: 14px;
+      }
+      
+      .popup-items {
+        margin-top: 10px;
+      }
+      
+      .popup-item {
+        display: flex;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid #f5f5f5;
+      }
+      
+      .popup-item:last-child {
+        border-bottom: none;
+      }
+      
+      .popup-item img {
+        width: 40px;
+        height: 30px;
+        object-fit: cover;
+        margin-right: 10px;
+        border-radius: 4px;
+      }
+      
+      .popup-item-info p {
+        margin: 0;
+        line-height: 1.3;
+      }
+      
+      .popup-item-title {
+        font-weight: 600;
+      }
+      
+      .popup-item-meta {
+        font-size: 12px;
+        color: #888;
+      }
+      
+      .sidebar-popup {
+        position: absolute;
+        left: 80px;
+        top: 0;
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        display: none;
+        width: 200px;
+        z-index: 1000;
+        border-left: 3px solid #bc0150;
+      }
+      
+      .sidebar-popup h3 {
+        color: #bc0150;
+        margin-top: 0;
+        margin-bottom: 10px;
+      }
+      
+      .sidebar-popup p {
+        font-size: 14px;
+        line-height: 1.4;
+        margin: 0 0 8px 0;
+      }
+      
+      #sidebar-toggle {
+        cursor: pointer;
+        user-select: none;
+      }
+    </style>
   </head>
   <body>
     <div class="nav">
@@ -31,25 +194,125 @@
         </p>
       </div>
       <div class="middle">
-        <form>
-          <input type="search" placeholder="Search..." />
+        <form id="searchForm">
+          <input type="search" placeholder="Search..." id="searchInput" />
           <button type="submit">Search</button>
+          <div id="searchResults"></div>
         </form>
       </div>
       <div class="right">
-        <a class="nav-link" href="" id="lft" title="Home">home</a>
-        <a class="nav-link" href="" title="Queue">queue</a>
-        <a class="nav-link" href="" title="Anime">anime</a>
+        <a class="nav-link" href="#" id="homeLink" title="Home">home</a>
+        <a class="nav-link" href="#" id="queueLink" title="Queue">queue</a>
+        <a class="nav-link" href="#" id="animeLink" title="Anime">anime</a>
+        
+        <div class="nav-popup popup-home" id="homePopup">
+          <h3>Home</h3>
+          <div class="popup-content">
+            <p>Discover Studio Ghibli's timeless animated classics</p>
+            <div class="popup-items">
+              <div class="popup-item">
+                <img src="https://ucarecdn.com/7a7efbc2-133f-4bae-abd9-ec0d710da83d/-/preview/1000x562/" alt="Spirited Away">
+                <div class="popup-item-info">
+                  <p class="popup-item-title">Featured: Spirited Away</p>
+                  <p class="popup-item-meta">IMDB: 8.6⭐</p>
+                </div>
+              </div>
+              <div class="popup-item">
+                <img src="https://ucarecdn.com/cb4d1917-4f63-4bec-9bc1-1d8581749685/-/preview/1000x562/" alt="Howl's Moving Castle">
+                <div class="popup-item-info">
+                  <p class="popup-item-title">Howl's Moving Castle</p>
+                  <p class="popup-item-meta">IMDB: 8.2⭐</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="nav-popup popup-queue" id="queuePopup">
+          <h3>Queue</h3>
+          <div class="popup-content">
+            <p>Your watch list and download queue</p>
+            <div class="popup-items">
+              <div class="popup-item">
+                <img src="https://ucarecdn.com/ae979436-a051-41fb-bfb7-9f139890b6c2/-/preview/1000x562/" alt="My Neighbor Totoro">
+                <div class="popup-item-info">
+                  <p class="popup-item-title">My Neighbor Totoro</p>
+                  <p class="popup-item-meta">Added today</p>
+                </div>
+              </div>
+              <div class="popup-item">
+                <img src="https://ucarecdn.com/ffceee67-055c-4cd4-a959-802bb3dca5c4/-/preview/1000x562/" alt="The Wind Rises">
+                <div class="popup-item-info">
+                  <p class="popup-item-title">The Wind Rises</p>
+                  <p class="popup-item-meta">Download queued</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="nav-popup popup-anime" id="animePopup">
+          <h3>Anime</h3>
+          <div class="popup-content">
+            <p>Explore more anime from Studio Ghibli</p>
+            <div class="popup-items">
+              <div class="popup-item">
+                <img src="https://ucarecdn.com/5431995c-d2a4-4874-a5a0-0b513c63bb63/-/preview/1000x562/" alt="Princess Mononoke">
+                <div class="popup-item-info">
+                  <p class="popup-item-title">Princess Mononoke</p>
+                  <p class="popup-item-meta">Epic fantasy</p>
+                </div>
+              </div>
+              <div class="popup-item">
+                <img src="https://ucarecdn.com/f92ff0fe-63d6-46c1-975f-014c0023d53c/-/preview/1000x562/" alt="Nausicaä">
+                <div class="popup-item-info">
+                  <p class="popup-item-title">Nausicaä</p>
+                  <p class="popup-item-meta">Sci-fi adventure</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="sidebar">
-      <div class="kanji">月</div>
-      <div class="kanji">木</div>
-      <div class="kanji">水</div>
-      <div class="kanji">空</div>
-      <div class="kanji">土</div>
-      <div class="kanji">風</div>
+      <div class="kanji" id="kanji-1">月</div>
+      <div class="kanji" id="kanji-2">木</div>
+      <div class="kanji" id="kanji-3">水</div>
+      <div class="kanji" id="kanji-4">空</div>
+      <div class="kanji" id="kanji-5">土</div>
+      <div class="kanji" id="kanji-6">風</div>
+      
+      <div class="sidebar-popup" id="kanji-1-popup">
+        <h3>月 (Tsuki)</h3>
+        <p>Means "Moon" in Japanese. The moon has significant symbolism in many Ghibli films, especially in "The Tale of Princess Kaguya".</p>
+      </div>
+      
+      <div class="sidebar-popup" id="kanji-2-popup">
+        <h3>木 (Ki)</h3>
+        <p>Means "Tree" or "Wood" in Japanese. Trees and forests are central themes in films like "Princess Mononoke" and "My Neighbor Totoro".</p>
+      </div>
+      
+      <div class="sidebar-popup" id="kanji-3-popup">
+        <h3>水 (Mizu)</h3>
+        <p>Means "Water" in Japanese. Water is a recurring element in many Ghibli films, particularly in "Spirited Away" and "Ponyo".</p>
+      </div>
+      
+      <div class="sidebar-popup" id="kanji-4-popup">
+        <h3>空 (Sora)</h3>
+        <p>Means "Sky" in Japanese. Flight and sky scenes are iconic in Ghibli films, especially in "The Wind Rises" and "Castle in the Sky".</p>
+      </div>
+      
+      <div class="sidebar-popup" id="kanji-5-popup">
+        <h3>土 (Tsuchi)</h3>
+        <p>Means "Earth" or "Soil" in Japanese. Connection to the land is a theme in "Princess Mononoke" and "Nausicaä of the Valley of the Wind".</p>
+      </div>
+      
+      <div class="sidebar-popup" id="kanji-6-popup">
+        <h3>風 (Kaze)</h3>
+        <p>Means "Wind" in Japanese. The wind is a powerful symbol in "The Wind Rises" and "Nausicaä of the Valley of the Wind".</p>
+      </div>
     </div>
 
     <div class="mainvidgrid">
@@ -236,5 +499,174 @@
         </div>
       </div>
     </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Search functionality
+        const searchForm = document.getElementById('searchForm');
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+        
+        // Movie data for search
+        const movies = [
+          { title: 'The Wind Rises', rating: '7.8', image: 'https://ucarecdn.com/ffceee67-055c-4cd4-a959-802bb3dca5c4/-/preview/1000x562/' },
+          { title: 'My Neighbour Totoro', rating: '8.1', image: 'https://ucarecdn.com/ae979436-a051-41fb-bfb7-9f139890b6c2/-/preview/1000x562/' },
+          { title: 'Whisper of the Heart', rating: '7.8', image: 'https://ucarecdn.com/f9e8ea20-ac60-4363-8046-203ca68dc734/-/preview/1000x562/' },
+          { title: 'Howl\'s Moving Castle', rating: '8.2', image: 'https://ucarecdn.com/cb4d1917-4f63-4bec-9bc1-1d8581749685/-/preview/1000x562/' },
+          { title: 'The Tale of Princess Kaguya', rating: '8.0', image: 'https://ucarecdn.com/769788e7-0127-41c6-8012-320cb01e629e/-/preview/1000x562/' },
+          { title: 'Tales of Earth Sea', rating: '6.3', image: 'https://ucarecdn.com/03c28d10-674c-458b-9862-b8e1ede2d113/-/preview/1000x562/' },
+          { title: 'Spirited Away', rating: '8.6', image: 'https://ucarecdn.com/7a7efbc2-133f-4bae-abd9-ec0d710da83d/-/preview/1000x562/' },
+          { title: 'Nausicaä of the Valley of the Wind', rating: '8.0', image: 'https://ucarecdn.com/f92ff0fe-63d6-46c1-975f-014c0023d53c/-/preview/1000x562/' },
+          { title: 'Princess Mononoke', rating: '8.3', image: 'https://ucarecdn.com/5431995c-d2a4-4874-a5a0-0b513c63bb63/-/preview/1000x562/' }
+        ];
+        
+        // Function to perform search
+        function performSearch(query) {
+          // Clear previous results
+          searchResults.innerHTML = '';
+          
+          // Filter movies based on query
+          const filteredMovies = movies.filter(movie => 
+            movie.title.toLowerCase().includes(query.toLowerCase())
+          );
+          
+          // Display results
+          if (filteredMovies.length > 0) {
+            filteredMovies.forEach(movie => {
+              const resultItem = document.createElement('div');
+              resultItem.className = 'search-result-item';
+              resultItem.innerHTML = `
+                <img src="${movie.image}" alt="${movie.title}">
+                <div class="search-result-info">
+                  <h4>${movie.title}</h4>
+                  <p>IMDB: ${movie.rating}⭐</p>
+                </div>
+              `;
+              
+              // Add click event to scroll to movie
+              resultItem.addEventListener('click', function() {
+                const movieElements = document.querySelectorAll('.movietitle');
+                for (let i = 0; i < movieElements.length; i++) {
+                  if (movieElements[i].textContent.toLowerCase().includes(movie.title.toLowerCase())) {
+                    movieElements[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    searchResults.style.display = 'none';
+                    break;
+                  }
+                }
+              });
+              
+              searchResults.appendChild(resultItem);
+            });
+            
+            searchResults.style.display = 'block';
+          } else {
+            searchResults.innerHTML = '<div class="search-result-item">No results found</div>';
+            searchResults.style.display = 'block';
+          }
+        }
+        
+        // Event listeners for search
+        searchForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const query = searchInput.value.trim();
+          if (query) {
+            performSearch(query);
+          }
+        });
+        
+        searchInput.addEventListener('input', function() {
+          const query = searchInput.value.trim();
+          if (query.length >= 2) {
+            performSearch(query);
+          } else {
+            searchResults.style.display = 'none';
+          }
+        });
+        
+        // Hide search results when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!searchForm.contains(e.target)) {
+            searchResults.style.display = 'none';
+          }
+        });
+        
+        // Navbar popups functionality
+        const homeLink = document.getElementById('homeLink');
+        const queueLink = document.getElementById('queueLink');
+        const animeLink = document.getElementById('animeLink');
+        const homePopup = document.getElementById('homePopup');
+        const queuePopup = document.getElementById('queuePopup');
+        const animePopup = document.getElementById('animePopup');
+        
+        // Function to hide all popups
+        function hideAllPopups() {
+          homePopup.style.display = 'none';
+          queuePopup.style.display = 'none';
+          animePopup.style.display = 'none';
+          
+          // Also hide kanji popups
+          const kanjiPopups = document.querySelectorAll('.sidebar-popup');
+          kanjiPopups.forEach(popup => {
+            popup.style.display = 'none';
+          });
+        }
+        
+        // Home link hover
+        homeLink.addEventListener('mouseenter', function() {
+          hideAllPopups();
+          homePopup.style.display = 'block';
+        });
+        
+        // Queue link hover
+        queueLink.addEventListener('mouseenter', function() {
+          hideAllPopups();
+          queuePopup.style.display = 'block';
+        });
+        
+        // Anime link hover
+        animeLink.addEventListener('mouseenter', function() {
+          hideAllPopups();
+          animePopup.style.display = 'block';
+        });
+        
+        // Hide popups when mouse leaves navbar
+        document.querySelector('.nav').addEventListener('mouseleave', function() {
+          hideAllPopups();
+        });
+        
+        // Sidebar kanji hover functionality
+        const kanjiElements = document.querySelectorAll('.kanji');
+        
+        kanjiElements.forEach((kanji, index) => {
+          const kanjiId = `kanji-${index + 1}`;
+          const popupId = `${kanjiId}-popup`;
+          const popup = document.getElementById(popupId);
+          
+          kanji.addEventListener('mouseenter', function() {
+            hideAllPopups();
+            popup.style.display = 'block';
+            
+            // Position the popup correctly
+            const kanjiRect = kanji.getBoundingClientRect();
+            popup.style.top = `${kanjiRect.top}px`;
+          });
+        });
+        
+        // Hide all popups when clicking elsewhere
+        document.addEventListener('click', function(e) {
+          if (!e.target.closest('.nav-link') && !e.target.closest('.nav-popup') && 
+              !e.target.closest('.kanji') && !e.target.closest('.sidebar-popup')) {
+            hideAllPopups();
+          }
+        });
+        
+        // Prevent default behavior for links
+        document.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+          });
+        });
+      });
+    </script>
   </body>
 </html>
